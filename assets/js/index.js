@@ -1,65 +1,53 @@
-// Animales
-class Animal {
-  constructor(nombre, edad, img, comentarios, sonido) {
-    this._nombre = nombre;
-    this._edad = edad;
-    this._img = img;
-    this._comentarios = comentarios;
-    this._sonido = sonido;
-  }
-  getNombre() {
-    return this._nombre;
-  }
-  getEdad() {
-    return this._edad;
-  }
-  getImg() {
-    return this._img;
-  }
-  setComentarios(comentarioNuevo) {
-    return (this._comentario = comentarioNuevo);
-  }
-  getSonido() {
-    return this._sonido;
-  }
-}
+import { Leon, Lobo, Oso, Serpiente, Aguila } from "./animales.js";
 
-class Leon extends Animal {
-  constructor(nombre, edad, img, comentarios, sonido) {
-    super(nombre, edad, img, comentarios, sonido);
-  }
-  rugir() {}
-}
-
-class Lobo extends Animal {
-  constructor(nombre, edad, img, comentarios, sonido) {
-    super(nombre, edad, img, comentarios, sonido);
-  }
-  aullar() {}
-}
-
-class Oso extends Animal {
-  constructor(nombre, edad, img, comentarios, sonido) {
-    super(nombre, edad, img, comentarios, sonido);
-  }
-  gruñir() {}
-}
-
-class Serpiente extends Animal {
-  constructor(nombre, edad, img, comentarios, sonido) {
-    super(nombre, edad, img, comentarios, sonido);
-  }
-  sisear() {}
-}
-
-class Aguila extends Animal {
-  constructor(nombre, edad, img, comentarios, sonido) {
-    super(nombre, edad, img, comentarios, sonido);
-  }
-  chillar() {}
-}
-
-// Formulario
-const animal = document.getElementById("animal");
-const edadAnimal = document.getElementById("edad");
+const animal = document.querySelector("#animal");
+const edad = document.querySelector("#edad");
+const comentarios = document.querySelector("#comentarios");
+const preview = document.querySelector("#preview");
 const btnReg = document.getElementById("btnRegistrar");
+const reproductor = document.getElementById("player");
+
+let formulario = {};
+
+function onChangeInput(event) {
+  formulario = { ...formulario, [event.target.id]: event.target.value };
+}
+
+animal.addEventListener("change", (event) => {
+  onChangeInput(event);
+  console.log(event.target.value);
+});
+edad.addEventListener("change", (event) => {
+  onChangeInput(event);
+  console.log(event.target.value);
+});
+comentarios.addEventListener("change", (event) => {
+  onChangeInput(event);
+  console.log(event.target.value);
+});
+
+btnReg.addEventListener("click", (event) => {
+  event.preventDefault();
+  let instanciaNueva = "";
+  switch (formulario.animal) {
+    case 'Leon':
+      instanciaNueva = new Leon(formulario.animal, formulario.edad, "imagen", formulario.comentarios, "sonido");
+      break;
+    case 'Lobo':
+      instanciaNueva = new Lobo(formulario.animal, formulario.edad, "imagen", formulario.comentarios, "sonido");
+      break;
+    case 'Oso':
+      instanciaNueva = new Oso(formulario.animal, formulario.edad, "imagen", formulario.comentarios, "sonido");
+      break;
+    case 'Serpiente':
+      instanciaNueva = new Serpiente(formulario.animal, formulario.edad, "imagen", formulario.comentarios, "sonido");
+      break;
+    case 'Aguila':
+      instanciaNueva = new Aguila(formulario.animal, formulario.edad, "imagen", formulario.comentarios, "sonido");
+      break;
+    default:
+      console.error('Tipo de animal no reconocido');
+      return;
+  }
+  console.log(instanciaNueva)
+});
