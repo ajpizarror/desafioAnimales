@@ -1,4 +1,7 @@
 import { Leon, Lobo, Oso, Serpiente, Aguila } from "./animales.js";
+import ModuloApi from "./iife.js";
+
+const dataAnimal = await ModuloApi.getData();
 
 const animal = document.querySelector("#animal");
 const edad = document.querySelector("#edad");
@@ -6,6 +9,9 @@ const comentarios = document.querySelector("#comentarios");
 const preview = document.querySelector("#preview");
 const btnReg = document.getElementById("btnRegistrar");
 const reproductor = document.getElementById("player");
+const imagenPreview = document.createElement("img");
+
+let instanciaNueva = "";
 
 let formulario = {};
 
@@ -15,6 +21,59 @@ function onChangeInput(event) {
 
 animal.addEventListener("change", (event) => {
   onChangeInput(event);
+  switch (formulario.animal) {
+    case "Leon":
+      instanciaNueva = new Leon(
+        formulario.animal,
+        formulario.edad,
+        "http://127.0.0.1:5500/assets/imgs/" + dataAnimal.animales[0].imagen,
+        formulario.comentarios,
+        "http://127.0.0.1:5500/assets/sounds/" + dataAnimal.animales[0].sonido
+      );
+      break;
+    case "Lobo":
+      instanciaNueva = new Lobo(
+        formulario.animal,
+        formulario.edad,
+        "http://127.0.0.1:5500/assets/imgs/" + dataAnimal.animales[1].imagen,
+        formulario.comentarios,
+        "http://127.0.0.1:5500/assets/sounds/" + dataAnimal.animales[1].sonido
+      );
+      break;
+    case "Oso":
+      instanciaNueva = new Oso(
+        formulario.animal,
+        formulario.edad,
+        "http://127.0.0.1:5500/assets/imgs/" + dataAnimal.animales[2].imagen,
+        formulario.comentarios,
+        "http://127.0.0.1:5500/assets/sounds/" + dataAnimal.animales[2].sonido
+      );
+      break;
+    case "Serpiente":
+      instanciaNueva = new Serpiente(
+        formulario.animal,
+        formulario.edad,
+        "http://127.0.0.1:5500/assets/imgs/" + dataAnimal.animales[3].imagen,
+        formulario.comentarios,
+        "http://127.0.0.1:5500/assets/sounds/" + dataAnimal.animales[3].sonido
+      );
+      break;
+    case "Aguila":
+      instanciaNueva = new Aguila(
+        formulario.animal,
+        formulario.edad,
+        "http://127.0.0.1:5500/assets/imgs/" + dataAnimal.animales[4].imagen,
+        formulario.comentarios,
+        "http://127.0.0.1:5500/assets/sounds/" + dataAnimal.animales[4].sonido
+      );
+      break;
+    default:
+      console.error("Tipo de animal no reconocido");
+      return;
+  }
+  imagenPreview.src = instanciaNueva.getImg();
+  document.querySelector("#preview").appendChild(imagenPreview);
+
   console.log(event.target.value);
 });
 edad.addEventListener("change", (event) => {
@@ -27,27 +86,11 @@ comentarios.addEventListener("change", (event) => {
 });
 
 btnReg.addEventListener("click", (event) => {
-  event.preventDefault();
-  let instanciaNueva = "";
-  switch (formulario.animal) {
-    case 'Leon':
-      instanciaNueva = new Leon(formulario.animal, formulario.edad, "imagen", formulario.comentarios, "sonido");
-      break;
-    case 'Lobo':
-      instanciaNueva = new Lobo(formulario.animal, formulario.edad, "imagen", formulario.comentarios, "sonido");
-      break;
-    case 'Oso':
-      instanciaNueva = new Oso(formulario.animal, formulario.edad, "imagen", formulario.comentarios, "sonido");
-      break;
-    case 'Serpiente':
-      instanciaNueva = new Serpiente(formulario.animal, formulario.edad, "imagen", formulario.comentarios, "sonido");
-      break;
-    case 'Aguila':
-      instanciaNueva = new Aguila(formulario.animal, formulario.edad, "imagen", formulario.comentarios, "sonido");
-      break;
-    default:
-      console.error('Tipo de animal no reconocido');
-      return;
-  }
-  console.log(instanciaNueva)
+  let card += `
+    <div class = "card">
+    <img src="${instanciaNueva.getImg()}">
+    <audio src="${instanciaNueva.getSonido()}" controls>
+    </audio>
+    </div>`;
+    document.querySelector("#Tabla").innerHTML = card;
 });
