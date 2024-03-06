@@ -56,6 +56,10 @@ body {
 width: 15rem;
 }
 
+.card img{
+  height: 15rem;
+  }
+
 audio{
   width: 15rem;
 }

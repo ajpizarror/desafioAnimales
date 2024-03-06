@@ -86,11 +86,19 @@ comentarios.addEventListener("change", (event) => {
 });
 
 btnReg.addEventListener("click", (event) => {
-  let card += `
+  const card = `
     <div class = "card">
     <img src="${instanciaNueva.getImg()}">
     <audio src="${instanciaNueva.getSonido()}" controls>
     </audio>
     </div>`;
-    document.querySelector("#Tabla").innerHTML = card;
+    document.querySelector("#Animales").innerHTML += card;
 });
+
+document.querySelectorAll(".card").forEach(function(){
+    this.addEventListener("click", (event) => {console.log("probando")})
+})
+
+function mostrarModal(){
+    console.log("mostrar modal probando")
+}
