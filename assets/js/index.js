@@ -6,9 +6,7 @@ const dataAnimal = await ModuloApi.getData();
 const animal = document.querySelector("#animal");
 const edad = document.querySelector("#edad");
 const comentarios = document.querySelector("#comentarios");
-const preview = document.querySelector("#preview");
 const btnReg = document.getElementById("btnRegistrar");
-const reproductor = document.getElementById("player");
 const imagenPreview = document.createElement("img");
 
 let instanciaNueva = "";
@@ -94,11 +92,3 @@ btnReg.addEventListener("click", (event) => {
     </div>`;
     document.querySelector("#Animales").innerHTML += card;
 });
-
-document.querySelectorAll(".card").forEach(function(){
-    this.addEventListener("click", (event) => {console.log("probando")})
-})
-
-function mostrarModal(){
-    console.log("mostrar modal probando")
-}
